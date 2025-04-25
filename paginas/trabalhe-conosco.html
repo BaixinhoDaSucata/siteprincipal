@@ -554,31 +554,52 @@
                 <p class="section-subtitle">Confira nossas oportunidades atuais</p>
             </div>
             
-            <div class="row">
-                <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="row" id="vagas-container">
+                <!-- As vagas serão carregadas dinamicamente do banco de dados -->
+            </div>
+            
+            <!-- Template para cada vaga -->
+            <template id="vaga-template">
+                <div class="col-lg-6 mb-4" data-aos="fade-up">
                     <div class="job-card">
-                        <h3 class="job-title">Operador de Triagem</h3>
+                        <h3 class="job-title"></h3>
                         <div class="job-location">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Dom Aquino, MT</span>
+                            <span></span>
                         </div>
-                        <span class="job-type">Tempo Integral</span>
-                        <p class="job-description">Responsável pela separação e classificação de materiais recicláveis, garantindo a qualidade e eficiência do processo.</p>
+                        <span class="job-type"></span>
+                        <p class="job-description"></p>
                         <div class="job-requirements">
                             <h6>Requisitos:</h6>
                             <ul>
-                                <li>Ensino Fundamental completo</li>
-                                <li>Conhecimento básico de tipos de materiais recicláveis</li>
-                                <li>Capacidade física para realizar a atividade</li>
-                                <li>Desejável experiência prévia na função</li>
                             </ul>
                         </div>
                         <div class="job-footer">
-                            <span class="job-salary">R$ 1.320,00 a R$ 1.500,00</span>
+                            <span class="job-salary"></span>
                             <a href="#candidatura" class="btn btn-sm btn-primary">Candidatar-se</a>
                         </div>
                     </div>
                 </div>
+            </template>
+            
+            <div id="loading-vagas" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Carregando vagas...</span>
+                </div>
+                <p class="mt-2">Carregando vagas disponíveis...</p>
+            </div>
+            
+            <div id="error-vagas" class="alert alert-danger text-center py-3" style="display: none;">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <span>Não foi possível carregar as vagas no momento. Por favor, tente novamente mais tarde.</span>
+            </div>
+            
+            <div id="no-vagas" class="text-center py-4" style="display: none;">
+                <i class="fas fa-info-circle fa-2x text-primary mb-3"></i>
+                <p class="lead">No momento não há vagas abertas que correspondam ao seu perfil.</p>
+                <p>Mas você pode enviar seu currículo para nosso banco de talentos e entraremos em contato quando surgir uma oportunidade adequada.</p>
+                <a href="#candidatura" class="btn btn-primary mt-2">Enviar currículo para banco de talentos</a>
+            </div>
                 
                 <div class="col-lg-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="job-card">

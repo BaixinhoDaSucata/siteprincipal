@@ -4,6 +4,64 @@
 * DOM AQUINO - MT
 */
 
+/* Estilos para termos, privacidade e cookies */
+.terms-content,
+.privacy-content {
+    line-height: 1.6;
+}
+
+.terms-content h3,
+.privacy-content h3 {
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.terms-content h4,
+.privacy-content h4 {
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.terms-content ul,
+.privacy-content ul {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.terms-content ul li,
+.privacy-content ul li {
+    margin-bottom: 0.5rem;
+}
+
+.terms-footer,
+.privacy-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-300);
+}
+
+.contact-info-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.contact-info-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos para o banner de cookies */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    padding: 1rem;
+}
+
 :root {
     /* Paleta de cores principal - Sustentabilidade */
     --primary: #2E7D32; /* Verde escuro */

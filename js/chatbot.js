@@ -7,50 +7,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
     
-    // Verifica se o chatbot já foi inicializado
-    if (window.chatbotInitialized) return;
-    window.chatbotInitialized = true;
-    
-    // Elementos do chatbot
-    let chatbotButton, closeButton, chatWindow, messagesContainer, inputField, sendButton, typingIndicator;
-    
-    // Base de conhecimento do chatbot
-    const knowledgeBase = {
-        'ola': 'Olá! Bem-vindo ao Baixinho da Sucata. Como posso ajudá-lo hoje?',
-        'oi': 'Olá! Bem-vindo ao Baixinho da Sucata. Como posso ajudá-lo hoje?',
-        'bom dia': 'Bom dia! Como posso ajudá-lo hoje?',
-        'boa tarde': 'Boa tarde! Como posso ajudá-lo hoje?',
-        'boa noite': 'Boa noite! Como posso ajudá-lo hoje?',
-        'quem é você': 'Sou o assistente virtual do Baixinho da Sucata, estou aqui para responder suas dúvidas sobre materiais recicláveis, serviços, preços e outras informações.',
-        'como funciona': 'O Baixinho da Sucata compra diversos tipos de materiais recicláveis. Você pode trazer seu material até nosso endereço ou solicitar uma coleta em domicílio. Pagamos à vista pelos materiais.',
-        'materiais': 'Compramos diversos materiais como ferro, alumínio, cobre, bronze, inox, baterias, papel, papelão, plástico e outros materiais recicláveis. Consulte nossa página de materiais para ver a lista completa e preços.',
-        'preços': 'Os preços variam de acordo com o tipo e qualidade do material. Você pode consultar valores aproximados em nossa calculadora de preços ou entrar em contato diretamente conosco.',
-        'coleta': 'Sim, oferecemos serviço de coleta em domicílio para quantidades significativas de material. Entre em contato pelo WhatsApp (66) 99928-1855 para agendar.',
-        'endereço': 'Estamos localizados na Rua Agenor de Campos, 10, Loteamento Agua Azul, Dom Aquino, Mato Grosso. Você pode nos encontrar facilmente no mapa disponível em nosso site.',
-        'horário': 'Nosso horário de funcionamento é de Segunda a Sábado, das 7h às 18h.',
-        'pagamento': 'Realizamos o pagamento à vista pelos materiais entregues, após a pesagem em nossa balança certificada.',
-        'como vender': 'Para vender seus materiais recicláveis, basta trazê-los até nossa unidade ou solicitar uma coleta (para grandes volumes). Faremos a pesagem e o pagamento será realizado imediatamente.',
-        'empresa': 'O Baixinho da Sucata é uma empresa familiar especializada na compra de materiais recicláveis em Dom Aquino e região desde 2015. Nosso objetivo é oferecer o melhor preço pelo seu material e contribuir com o meio ambiente.',
-        'contato': 'Você pode entrar em contato conosco pelo telefone/WhatsApp (66) 99928-1855 ou pelo e-mail alairrodrigues93@gmail.com.',
-        'cnpj': 'Nosso CNPJ é 53.794.497/0001-23. Somos uma empresa devidamente registrada e regularizada.',
-        'região': 'Atendemos Dom Aquino, Jaciara, Juscimeira, São Pedro Da Cipa, Campo Verde e outras cidades próximas no Mato Grosso.',
-        'calculadora': 'Temos uma calculadora de preços em nosso site. Você pode acessá-la no menu "Calculadora" e obter uma estimativa do valor de seus materiais.',
-        'menor quantidade': 'Não há quantidade mínima para venda, aceitamos desde pequenas quantidades até grandes volumes.',
-        'obrigado': 'Disponha! Estou sempre aqui para ajudar. Há mais alguma coisa que você gostaria de saber?',
-        'emprego': 'Estamos sempre abertos a novos talentos. Você pode conferir nossas vagas disponíveis na seção "Trabalhe Conosco" e enviar seu currículo através do formulário disponível.',
-        'vaga': 'Para conhecer nossas vagas disponíveis, acesse a seção "Trabalhe Conosco" em nosso site. Lá você encontrará informações sobre oportunidades e poderá enviar seu currículo.',
-        'serviços': 'Oferecemos serviços de compra de materiais recicláveis, coleta em domicílio, limpeza de terrenos e retirada de materiais. Para mais informações, visite nossa página de Serviços.'
-    };
-    
-    // Mensagens padrão
-    const defaultResponse = "Desculpe, não consegui entender sua pergunta. Pode reformular ou perguntar sobre materiais, preços, coleta, horários de funcionamento ou nossos serviços.";
-    const greetingMessage = "Olá! Sou o assistente virtual do Baixinho da Sucata. Como posso ajudá-lo hoje?";
+    // Inicializa o chatbot
+    initChatbot();
     
     /**
      * Inicializa o chatbot
      */
     function initChatbot() {
+        // Cria os elementos HTML do chatbot se não existirem
         createChatbotElements();
+        
+        // Configura os event listeners
         setupEventListeners();
     }
     
@@ -58,225 +25,89 @@ document.addEventListener('DOMContentLoaded', function() {
      * Cria os elementos do chatbot na página
      */
     function createChatbotElements() {
-        // Verifica se o chatbot já existe na página
-        if (document.querySelector('.chatbot-container')) return;
+        // Verifica se os elementos já existem
+        if (document.getElementById('chatbot-container')) return;
         
         // Cria o container principal
         const chatbotContainer = document.createElement('div');
-        chatbotContainer.className = 'chatbot-container';
+        chatbotContainer.id = 'chatbot-container';
         
-        // HTML interno do chatbot
-        chatbotContainer.innerHTML = `
-            <div class="chatbot-button" id="open-chatbot">
-                <i class="fas fa-robot"></i>
+        // Botão para abrir o chatbot
+        const openButton = document.createElement('button');
+        openButton.id = 'open-chatbot';
+        openButton.className = 'chatbot-toggle';
+        openButton.innerHTML = '<i class="fas fa-comments"></i>';
+        
+        // Janela do chatbot
+        const chatWindow = document.createElement('div');
+        chatWindow.id = 'chatbot-window';
+        chatWindow.style.display = 'none';
+        
+        // Cabeçalho do chatbot
+        const chatHeader = document.createElement('div');
+        chatHeader.className = 'chatbot-header';
+        chatHeader.innerHTML = `
+            <div class="chatbot-title">
+                <i class="fas fa-robot me-2"></i>
+                Assistente Virtual - Baixinho da Sucata
             </div>
-            <div class="chatbot-window" id="chatbot-window">
-                <div class="chatbot-header">
-                    <div class="chatbot-title">
-                        <div class="chatbot-avatar">
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <span>Atendente Virtual</span>
-                    </div>
-                    <div class="chatbot-close" id="close-chatbot">
-                        <i class="fas fa-times"></i>
-                    </div>
-                </div>
-                <div class="chatbot-messages" id="chatbot-messages">
-                    <!-- Mensagens serão adicionadas via JavaScript -->
-                </div>
-                <div class="chatbot-typing" id="chatbot-typing">
-                    Digitando...
-                </div>
-                <div class="chatbot-input">
-                    <input type="text" id="chatbot-input-field" placeholder="Digite sua mensagem...">
-                    <button id="send-message">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
+            <button id="close-chatbot" class="chatbot-close-btn">
+                <i class="fas fa-times"></i>
+            </button>
         `;
         
-        // Adiciona estilos CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            /* Estilos para o chatbot */
-            .chatbot-container {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                z-index: 1000;
-            }
-            
-            .chatbot-button {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background-color: var(--primary, #2E7D32);
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                transition: all 0.3s ease;
-            }
-            
-            .chatbot-button:hover {
-                transform: scale(1.05);
-                background-color: var(--dark, #1B5E20);
-            }
-            
-            .chatbot-window {
-                position: absolute;
-                bottom: 80px;
-                right: 0;
-                width: 350px;
-                height: 450px;
-                background-color: white;
-                border-radius: 10px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                display: none;
-                flex-direction: column;
-                overflow: hidden;
-            }
-            
-            .chatbot-header {
-                background-color: var(--primary, #2E7D32);
-                color: white;
-                padding: 15px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-            
-            .chatbot-title {
-                display: flex;
-                align-items: center;
-            }
-            
-            .chatbot-avatar {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                background-color: white;
-                margin-right: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--primary, #2E7D32);
-                font-size: 16px;
-            }
-            
-            .chatbot-close {
-                cursor: pointer;
-                font-size: 18px;
-            }
-            
-            .chatbot-messages {
-                flex: 1;
-                padding: 15px;
-                overflow-y: auto;
-            }
-            
-            .message {
-                margin-bottom: 15px;
-                max-width: 80%;
-                word-wrap: break-word;
-            }
-            
-            .message::after {
-                content: "";
-                display: table;
-                clear: both;
-            }
-            
-            .bot-message {
-                background-color: #f1f1f1;
-                padding: 10px;
-                border-radius: 10px;
-                border-top-left-radius: 0;
-                float: left;
-                clear: both;
-            }
-            
-            .user-message {
-                background-color: var(--primary, #2E7D32);
-                color: white;
-                padding: 10px;
-                border-radius: 10px;
-                border-top-right-radius: 0;
-                float: right;
-                clear: both;
-            }
-            
-            .chatbot-input {
-                padding: 10px;
-                background-color: #f9f9f9;
-                border-top: 1px solid #eee;
-                display: flex;
-            }
-            
-            .chatbot-input input {
-                flex: 1;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 20px;
-                outline: none;
-            }
-            
-            .chatbot-input button {
-                background-color: var(--primary, #2E7D32);
-                color: white;
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                margin-left: 10px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-            
-            .chatbot-input button:hover {
-                background-color: var(--dark, #1B5E20);
-            }
-            
-            .chatbot-typing {
-                display: none;
-                margin-bottom: 15px;
-                font-style: italic;
-                color: #6c757d;
-                font-size: 0.9rem;
-                padding-left: 15px;
-            }
-            
-            @media (max-width: 576px) {
-                .chatbot-window {
-                    width: 300px;
-                    height: 400px;
-                    right: 0;
-                }
-            }
+        // Corpo da mensagem
+        const chatBody = document.createElement('div');
+        chatBody.className = 'chatbot-body';
+        
+        // Container de mensagens
+        const messagesContainer = document.createElement('div');
+        messagesContainer.id = 'chatbot-messages';
+        messagesContainer.className = 'chatbot-messages';
+        
+        // Indicador de digitação
+        const typingIndicator = document.createElement('div');
+        typingIndicator.id = 'chatbot-typing';
+        typingIndicator.className = 'typing-indicator';
+        typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+        typingIndicator.style.display = 'none';
+        
+        // Área de input
+        const inputArea = document.createElement('div');
+        inputArea.className = 'chatbot-input-area';
+        inputArea.innerHTML = `
+            <input type="text" id="chatbot-input-field" placeholder="Digite sua pergunta...">
+            <button id="send-message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         `;
         
-        // Adiciona elementos ao DOM
-        document.head.appendChild(style);
+        // Monta a estrutura
+        chatBody.appendChild(messagesContainer);
+        chatBody.appendChild(typingIndicator);
+        
+        chatWindow.appendChild(chatHeader);
+        chatWindow.appendChild(chatBody);
+        chatWindow.appendChild(inputArea);
+        
+        chatbotContainer.appendChild(openButton);
+        chatbotContainer.appendChild(chatWindow);
+        
+        // Adiciona ao corpo do documento
         document.body.appendChild(chatbotContainer);
-        
-        // Armazena referências aos elementos
-        chatbotButton = document.getElementById('open-chatbot');
-        closeButton = document.getElementById('close-chatbot');
-        chatWindow = document.getElementById('chatbot-window');
-        messagesContainer = document.getElementById('chatbot-messages');
-        inputField = document.getElementById('chatbot-input-field');
-        sendButton = document.getElementById('send-message');
-        typingIndicator = document.getElementById('chatbot-typing');
     }
     
     /**
      * Configura os event listeners
      */
     function setupEventListeners() {
+        const chatbotButton = document.getElementById('open-chatbot');
+        const closeButton = document.getElementById('close-chatbot');
+        const chatWindow = document.getElementById('chatbot-window');
+        const messagesContainer = document.getElementById('chatbot-messages');
+        const inputField = document.getElementById('chatbot-input-field');
+        const sendButton = document.getElementById('send-message');
+        
         // Abre o chatbot
         chatbotButton.addEventListener('click', function() {
             chatWindow.style.display = 'flex';
@@ -313,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {string} sender - 'bot' ou 'user'
      */
     function addMessage(text, sender) {
+        const messagesContainer = document.getElementById('chatbot-messages');
         const messageElement = document.createElement('div');
         messageElement.classList.add('message');
         messageElement.classList.add(sender === 'bot' ? 'bot-message' : 'user-message');
@@ -327,9 +159,8 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param {number} duration - Duração da simulação em ms
      */
     function simulateTyping(callback, duration = 1000) {
+        const typingIndicator = document.getElementById('chatbot-typing');
         typingIndicator.style.display = 'block';
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        
         setTimeout(() => {
             typingIndicator.style.display = 'none';
             callback();
@@ -340,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Envia uma mensagem do usuário e processa a resposta
      */
     function sendMessage() {
+        const inputField = document.getElementById('chatbot-input-field');
         const message = inputField.value.trim();
         
         if (message === '') return;
@@ -377,17 +209,15 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Se não houver correspondência exata, verifica palavras-chave
         const keywords = [
-            { terms: ['material', 'recicla', 'compra', 'tipo'], response: 'Compramos diversos materiais como ferro, alumínio, cobre, bronze, inox, baterias, papel, papelão, plástico e outros materiais recicláveis. Consulte nossa página de materiais para ver a lista completa e preços.' },
-            { terms: ['preco', 'valor', 'quanto', 'paga'], response: 'Os preços variam de acordo com o tipo e qualidade do material. Você pode consultar valores aproximados em nossa calculadora de preços ou entrar em contato diretamente conosco.' },
-            { terms: ['coleta', 'buscar', 'retirar', 'domicilio'], response: 'Sim, oferecemos serviço de coleta em domicílio para quantidades significativas de material. Entre em contato pelo WhatsApp (66) 99928-1855 para agendar.' },
-            { terms: ['endereco', 'localizacao', 'onde', 'chegar'], response: 'Estamos localizados na Rua Agenor de Campos, 10, Loteamento Agua Azul, Dom Aquino, Mato Grosso. Você pode nos encontrar facilmente no mapa disponível em nosso site.' },
-            { terms: ['horario', 'funcionamento', 'aberto', 'atendimento'], response: 'Nosso horário de funcionamento é de Segunda a Sábado, das 7h às 18h.' },
-            { terms: ['pagar', 'pagamento', 'dinheiro', 'vista'], response: 'Realizamos o pagamento à vista pelos materiais entregues, após a pesagem em nossa balança certificada.' },
-            { terms: ['vender', 'entregar', 'levar', 'trazer'], response: 'Para vender seus materiais recicláveis, basta trazê-los até nossa unidade ou solicitar uma coleta (para grandes volumes). Faremos a pesagem e o pagamento será realizado imediatamente.' },
-            { terms: ['contato', 'telefone', 'whatsapp', 'email'], response: 'Você pode entrar em contato conosco pelo telefone/WhatsApp (66) 99928-1855 ou pelo e-mail alairrodrigues93@gmail.com.' },
-            { terms: ['regiao', 'cidade', 'atende', 'jaciara', 'juscimeira'], response: 'Atendemos Dom Aquino, Jaciara, Juscimeira, São Pedro Da Cipa, Campo Verde e outras cidades próximas no Mato Grosso.' },
-            { terms: ['empresa', 'sobre', 'historia', 'baixinho'], response: 'O Baixinho da Sucata é uma empresa familiar especializada na compra de materiais recicláveis em Dom Aquino e região desde 2015. Nosso objetivo é oferecer o melhor preço pelo seu material e contribuir com o meio ambiente.' },
-            { terms: ['emprego', 'vaga', 'trabalhar', 'curriculo'], response: 'Estamos sempre abertos a novos talentos. Você pode conferir nossas vagas disponíveis na seção "Trabalhe Conosco" e enviar seu currículo através do formulário disponível.' }
+            { terms: ['vaga', 'oportunidade', 'emprego', 'trabalho'], response: 'Temos diversas vagas disponíveis. Você pode conferir todas as oportunidades nesta página e se candidatar através do formulário abaixo.' },
+            { terms: ['salario', 'ganhar', 'paga', 'remuneracao'], response: 'Os salários variam de acordo com o cargo e a experiência. Você pode verificar a faixa salarial na descrição de cada vaga.' },
+            { terms: ['entrevista', 'selecao', 'processo'], response: 'Nosso processo seletivo consiste em análise curricular, entrevista com RH, entrevista técnica/prática (quando aplicável), entrevista com gestor, exames admissionais e contratação.' },
+            { terms: ['requisito', 'precisa', 'necessario'], response: 'Os requisitos variam de acordo com cada vaga. Você pode verificar os requisitos específicos na descrição de cada posição.' },
+            { terms: ['beneficio', 'vantagem', 'oferecem'], response: 'Oferecemos diversos benefícios como vale-transporte, vale-alimentação, plano de saúde após o período de experiência, seguro de vida e oportunidades de crescimento interno.' },
+            { terms: ['contato', 'telefone', 'email', 'falar'], response: 'Você pode entrar em contato conosco pelo telefone (66) 99928-1855 ou pelo e-mail alairrodrigues93@gmail.com.' },
+            { terms: ['horario', 'jornada', 'turno', 'trabalha'], response: 'Os horários variam conforme a função, geralmente entre 7h e 18h, de segunda a sexta ou de segunda a sábado, com escalas específicas para algumas funções.' },
+            { terms: ['experiencia', 'conhecimento', 'saber'], response: 'Algumas vagas exigem experiência prévia, outras são adequadas para iniciantes. Verifique os requisitos específicos de cada vaga.' },
+            { terms: ['enviar', 'curriculo', 'candidatar', 'aplicar'], response: 'Para se candidatar, role a página até o formulário de candidatura, preencha seus dados e anexe seu currículo em formato PDF ou DOC.' }
         ];
         
         for (const keyword of keywords) {
@@ -400,6 +230,35 @@ document.addEventListener('DOMContentLoaded', function() {
         return defaultResponse;
     }
     
-    // Inicializa o chatbot
-    initChatbot();
+    // Base de conhecimento do chatbot
+    const knowledgeBase = {
+        'ola': 'Olá! Bem-vindo ao Baixinho da Sucata. Como posso ajudá-lo hoje?',
+        'oi': 'Olá! Bem-vindo ao Baixinho da Sucata. Como posso ajudá-lo hoje?',
+        'bom dia': 'Bom dia! Como posso ajudá-lo hoje?',
+        'boa tarde': 'Boa tarde! Como posso ajudá-lo hoje?',
+        'boa noite': 'Boa noite! Como posso ajudá-lo hoje?',
+        'quem é você': 'Sou o assistente virtual do Baixinho da Sucata, estou aqui para responder suas dúvidas sobre vagas, processo seletivo e nossa empresa.',
+        'como funciona': 'Para se candidatar a uma vaga, basta preencher o formulário e anexar seu currículo. Nossa equipe irá analisar e entrar em contato caso seu perfil se encaixe nas vagas disponíveis.',
+        'beneficios': 'Oferecemos diversos benefícios como vale-transporte, vale-alimentação, plano de saúde após o período de experiência, seguro de vida e oportunidades de crescimento interno.',
+        'salario': 'Os salários variam de acordo com o cargo e a experiência. Você pode verificar a faixa salarial na descrição de cada vaga.',
+        'processo seletivo': 'Nosso processo seletivo consiste em análise curricular, entrevista com RH, entrevista técnica/prática (quando aplicável), entrevista com gestor, exames admissionais e contratação.',
+        'documentos': 'Para a contratação, serão necessários documentos como RG, CPF, CTPS, comprovante de residência, certificado de escolaridade e outros que serão informados caso você seja aprovado no processo seletivo.',
+        'entrevista': 'As entrevistas podem ser presenciais ou online, dependendo da etapa do processo e da vaga. Recomendamos que se prepare conhecendo nossa empresa e o setor de reciclagem.',
+        'horario de trabalho': 'Os horários variam conforme a função, geralmente entre 7h e 18h, de segunda a sexta ou de segunda a sábado, com escalas específicas para algumas funções.',
+        'experiencia': 'Algumas vagas exigem experiência prévia, outras são adequadas para iniciantes. Verifique os requisitos específicos de cada vaga.',
+        'candidatar': 'Para se candidatar, role a página até o formulário de candidatura, preencha seus dados e anexe seu currículo em formato PDF ou DOC.',
+        'prazo': 'Geralmente entramos em contato com os candidatos selecionados em até 10 dias úteis após o recebimento do currículo.',
+        'obrigado': 'Disponha! Estou sempre aqui para ajudar. Há mais alguma coisa que você gostaria de saber?',
+        'contato': 'Você pode entrar em contato conosco pelo telefone (66) 99928-1855 ou pelo e-mail alairrodrigues93@gmail.com.',
+        'endereco': 'Estamos localizados na Rua Agenor de Campos (Antiga Perimetral), nº 10, Loteamento Agua Azul, Dom Aquino - MT.',
+        'mais vagas': 'Periodicamente abrimos novas vagas. Caso não encontre uma vaga que se adeque ao seu perfil, recomendamos enviar seu currículo para nosso banco de talentos.',
+        'requisitos': 'Os requisitos variam de acordo com cada vaga. Você pode verificar os requisitos específicos na descrição de cada posição.',
+        'cursos': 'Valorizamos candidatos que buscam aprimoramento profissional. Dependendo da vaga, cursos específicos podem ser diferenciais importantes.',
+        'feedback': 'Procuramos dar feedback a todos os candidatos que passam pelo processo seletivo completo. Para quem está na fase de triagem curricular, nem sempre é possível retornar individualmente devido ao volume de candidaturas.',
+        'deficiencia': 'Sim, valorizamos a diversidade e inclusão. Temos vagas para pessoas com deficiência e adaptamos nosso ambiente de trabalho para acomodar diferentes necessidades.'
+    };
+    
+    // Mensagens padrão
+    const defaultResponse = "Desculpe, não consegui entender sua pergunta. Pode reformular ou perguntar sobre vagas, processo seletivo, benefícios, horários de trabalho ou contato.";
+    const greetingMessage = "Olá! Sou o assistente virtual do Baixinho da Sucata. Como posso ajudá-lo com informações sobre nossas vagas?";
 });

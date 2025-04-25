@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Materiais - Baixinho da Sucata | Dom Aquino-MT</title>
+    
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Calcule o valor dos seus materiais recicláveis com nossa calculadora. Ferro, cobre, alumínio, papelão e outros materiais. Baixinho da Sucata em Dom Aquino-MT.">
+    <meta name="keywords" content="calculadora de materiais, valor de sucata, preço de materiais recicláveis, reciclagem, ferro, cobre, alumínio, Dom Aquino, Jaciara, Juscimeira, Baixinho da Sucata">
+    <meta name="author" content="Alair Rodrigues de Oliveira">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://baixinhodasucata.com.br/calculadora.html">
+    <meta property="og:title" content="Calculadora de Materiais - Baixinho da Sucata | Dom Aquino-MT">
+    <meta property="og:description" content="Calcule o valor dos seus materiais recicláveis com nossa calculadora. Ferro, cobre, alumínio, papelão e outros materiais. Baixinho da Sucata em Dom Aquino-MT.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1598520106864-72ed7919100b">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://baixinhodasucata.com.br/calculadora.html">
+    <meta property="twitter:title" content="Calculadora de Materiais - Baixinho da Sucata | Dom Aquino-MT">
+    <meta property="twitter:description" content="Calcule o valor dos seus materiais recicláveis com nossa calculadora. Ferro, cobre, alumínio, papelão e outros materiais. Baixinho da Sucata em Dom Aquino-MT.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1598520106864-72ed7919100b">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://baixinhodasucata.com.br/calculadora.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS - Animate On Scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <style>
+        /* Estilos específicos para a calculadora */
+        .calculator-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .material-checkbox:checked + label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .total-amount {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .result-container {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .price-info {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão WhatsApp Flutuante -->
+    <a href="https://api.whatsapp.com/send?phone=5566999281855" class="float-whatsapp" target="_blank">
+        <i class="fab fa-whatsapp whatsapp-icon"></i>
+    </a>
+
+    <!-- Navegação -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <span class="logo-icon">♻️</span> Baixinho da Sucata
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre Nós</a></li>
+                    <li class="nav-item"><a class="nav-link" href="servicos.html">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="materiais.html">Materiais</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calculadora.html">Calculadora</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header da página -->
+    <header class="page-header bg-green text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4">Calculadora de Materiais</h1>
+                    <p class="lead">Calcule o valor estimado dos seus materiais recicláveis</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="../index.html">Início</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Calculadora</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção 1: Introdução à Calculadora -->
+    <section class="section-padding" id="intro-calculadora">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="section-title mb-4">
+                        <h2>Calculadora de Valor de Materiais</h2>
+                    </div>
+                    <p class="lead">Saiba quanto valem seus materiais recicláveis</p>
+                    <p>Utilize nossa calculadora para estimar o valor dos seus materiais recicláveis. Basta selecionar os tipos de materiais que você possui, informar o peso aproximado e a calculadora fornecerá uma estimativa do valor total.</p>
+                    <p>Esta é uma ferramenta para ajudar você a ter uma ideia do valor dos seus materiais. Para um valor exato, entre em contato conosco ou visite nossa unidade em Dom Aquino.</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> Os preços podem variar conforme a qualidade do material e as condições do mercado. Os valores mostrados são aproximados.
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1598520106864-72ed7919100b" alt="Calculadora de valor de materiais recicláveis" class="img-fluid rounded-3 shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 2: Calculadora Completa -->
+    <section class="section-padding bg-light" id="calculadora-completa">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Calculadora Completa</h2>
+                        <p class="lead">Selecione os materiais e informe o peso para calcular o valor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 mx-auto" data-aos="fade-up">
+                    <div class="calculator-container">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="materiaisTable">
+                                <thead>
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Preço por kg</th>
+                                        <th>Peso (kg)</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="materiaisTbody">
+                                    <!-- Conteúdo gerado via JavaScript -->
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-light">
+                                        <td colspan="3" class="text-end fw-bold">Valor Total:</td>
+                                        <td class="fw-bold" id="totalCalculadora">R$ 0,00</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <button type="button" id="limparCalculadora" class="btn btn-outline-secondary w-100">
+                                    <i class="fas fa-eraser me-2"></i> Limpar Calculadora
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" id="calcularCompleto" class="btn btn-success w-100">
+                                    <i class="fas fa-calculator me-2"></i> Calcular Valor
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="resultadoFinal" class="result-container d-none mt-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <h3 class="mb-3">Resultado do Cálculo</h3>
+                                    <p>Valor total estimado para seus materiais:</p>
+                                    <div class="result-value" id="resultadoValor">R$ 0,00</div>
+                                    <p class="price-info">*Valores aproximados. O valor exato pode variar conforme a qualidade e estado dos materiais.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="mb-3">Itens Calculados</h3>
+                                    <div id="itensCalculados"></div>
+                                    <div class="mt-4">
+                                        <a href="https://api.whatsapp.com/send?phone=5566999281855" class="btn btn-outline-success" target="_blank">
+                                            <i class="fab fa-whatsapp me-2"></i> Consultar via WhatsApp
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3: Como Vender seus Materiais -->
+    <section class="section-padding" id="como-vender">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Como Vender seus Materiais</h2>
+                        <p class="lead">Saiba como proceder após calcular o valor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-box text-center">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Calcule o Valor</h3>
+                        <p>Use nossa calculadora para ter uma estimativa do valor dos seus materiais recicláveis.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-box text-center">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3>Entre em Contato</h3>
+                        <p>Ligue para (66) 99928-1855 ou envie mensagem pelo WhatsApp para agendar a entrega ou coleta.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-box text-center">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Receba seu Pagamento</h3>
+                        <p>Após a pesagem dos materiais, o pagamento é feito imediatamente em dinheiro.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 4: Dicas para Aumentar o Valor -->
+    <section class="section-padding bg-light" id="dicas-valor">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0" data-aos="fade-left">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1519310572353-9536984a4b0b" alt="Separação correta de materiais recicláveis" class="img-fluid rounded-3 shadow">
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1" data-aos="fade-right">
+                    <div class="section-title mb-4">
+                        <h2>Dicas para Aumentar o Valor</h2>
+                    </div>
+                    <p class="lead">Maximize o valor dos seus materiais recicláveis</p>
+                    
+                    <div class="value-tips">
+                        <div class="value-tip">
+                            <div class="tip-icon">
+                                <i class="fas fa-sort-amount-down"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h3>Separação adequada</h3>
+                                <p>Separe os materiais por tipo. Não misture diferentes metais ou outros materiais, pois cada um tem seu valor específico.</p>
+                            </div>
+                        </div>
+                        <div class="value-tip">
+                            <div class="tip-icon">
+                                <i class="fas fa-tint-slash"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h3>Limpeza dos materiais</h3>
+                                <p>Materiais limpos e sem contaminantes (óleo, tinta, alimentos) têm maior valor. Lave embalagens plásticas e metálicas quando possível.</p>
+                            </div>
+                        </div>
+                        <div class="value-tip">
+                            <div class="tip-icon">
+                                <i class="fas fa-compress-alt"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h3>Compactação</h3>
+                                <p>Amasse latas de alumínio e garrafas plásticas para economizar espaço. Dobre caixas de papelão.</p>
+                            </div>
+                        </div>
+                        <div class="value-tip">
+                            <div class="tip-icon">
+                                <i class="fas fa-weight"></i>
+                            </div>
+                            <div class="tip-content">
+                                <h3>Quantidade</h3>
+                                <p>Quanto maior a quantidade de material, melhor o aproveitamento no transporte. Tente acumular uma boa quantidade antes de vender.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 5: Perguntas Frequentes -->
+    <section class="section-padding" id="faq-calculadora">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Perguntas Frequentes</h2>
+                        <p class="lead">Dúvidas comuns sobre nossa calculadora e preços</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                    <div class="accordion" id="faqCalculadora">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    Os valores da calculadora são exatos?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#faqCalculadora">
+                                <div class="accordion-body">
+                                    Os valores apresentados na calculadora são uma estimativa baseada nos preços médios praticados. O valor exato pode variar conforme a qualidade, estado de conservação e limpeza do material, além de possíveis flutuações do mercado. Para um valor preciso, recomendamos que entre em contato conosco ou traga o material para avaliação.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                    Como posso saber o peso exato do meu material?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#faqCalculadora">
+                                <div class="accordion-body">
+                                    Se você não tiver uma balança em casa, pode fazer uma estimativa aproximada ou trazer o material diretamente para nossa unidade em Dom Aquino. Temos balanças calibradas que farão a pesagem precisa do material. Para grandes volumes, podemos ir até você para realizar a pesagem e a coleta.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                    Os preços mudam com frequência?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#faqCalculadora">
+                                <div class="accordion-body">
+                                    Sim, os preços dos materiais recicláveis podem variar conforme o mercado. Fatores como oferta e demanda, cotações internacionais de metais e condições econômicas influenciam esses valores. Atualizamos regularmente os preços em nossa calculadora, mas para valores atualizados, entre em contato conosco.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                    Vocês têm preço diferenciado para grandes quantidades?
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#faqCalculadora">
+                                <div class="accordion-body">
+                                    Sim, para grandes volumes de materiais podemos oferecer condições especiais, principalmente para parcerias contínuas com empresas. Entre em contato conosco para discutir valores e condições específicas para seu caso.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                    Como é feito o pagamento pelos materiais?
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5" data-bs-parent="#faqCalculadora">
+                                <div class="accordion-body">
+                                    O pagamento é feito à vista, no momento da entrega ou coleta dos materiais. Após a pesagem e avaliação dos materiais, você recebe o valor em dinheiro imediatamente. Para volumes maiores ou parcerias com empresas, podemos discutir outras formas de pagamento.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section-padding bg-blue text-white" id="cta-calculadora">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                    <h2 class="mb-4">Pronto para transformar seus materiais em dinheiro?</h2>
+                    <p class="lead mb-5">Agora que você já calculou o valor estimado dos seus materiais, entre em contato conosco para agendar a entrega ou coleta. Estamos prontos para oferecer o melhor valor e atendimento!</p>
+                    <div class="cta-buttons">
+                        <a href="https://api.whatsapp.com/send?phone=5566999281855" class="btn btn-light btn-lg me-3" target="_blank"><i class="fab fa-whatsapp me-2"></i> Fale no WhatsApp</a>
+                        <a href="contato.html" class="btn btn-outline-light btn-lg">Entre em Contato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white">
+        <div class="container">
+            <div class="row py-5">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="footer-heading">Baixinho da Sucata</h3>
+                    <p>Empresa especializada na compra de materiais recicláveis em Dom Aquino e região. Contribuindo para um mundo mais sustentável desde 2013.</p>
+                    <div class="social-links mt-4">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="footer-heading">Contato</h3>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Rua Agenor de Campos, 10, Água Azul, Dom Aquino-MT</li>
+                        <li><i class="fas fa-phone-alt"></i> <a href="https://api.whatsapp.com/send?phone=5566999281855" target="_blank">(66) 99928-1855</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:alairrodrigues93@gmail.com">alairrodrigues93@gmail.com</a></li>
+                        <li><i class="fas fa-clock"></i> Segunda a Sábado: 07h às 18h</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3 class="footer-heading">Links Rápidos</h3>
+                    <div class="row">
+                        <div class="col-6">
+                            <ul class="footer-links">
+                                <li><a href="../index.html">Início</a></li>
+                                <li><a href="sobre.html">Sobre Nós</a></li>
+                                <li><a href="materiais.html">Materiais</a></li>
+                                <li><a href="calculadora.html">Calculadora</a></li>
+                                <li><a href="reciclagem.html">Reciclagem</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6">
+                            <ul class="footer-links">
+                                <li><a href="contato.html">Contato</a></li>
+                                <li><a href="dicas.html">Dicas</a></li>
+                                <li><a href="galeria.html">Galeria</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="faq.html">FAQ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom py-3 border-top border-secondary">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start">
+                        <p class="mb-0">&copy; 2023 Baixinho da Sucata. CNPJ: 53.794.497/0001-23. Todos os direitos reservados.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+                        <ul class="footer-bottom-links">
+                            <li><a href="politica-privacidade.html">Política de Privacidade</a></li>
+                            <li><a href="termos-servico.html">Termos de Serviço</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS - Animate On Scroll -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="../js/main.js"></script>
+    <script src="../js/calculadora.js"></script>
+</body>
+</html>

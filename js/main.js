@@ -89,9 +89,9 @@ function initMap() {
     const mapElement = document.getElementById('location-map');
     
     if (mapElement) {
-        // Coordenadas de Dom Aquino - MT (aproximadas)
-        const latitude = -15.8095;
-        const longitude = -54.9176;
+        // Coordenadas corretas de Dom Aquino - MT (Baixinho da Sucata)
+        const latitude = -15.8137;  // 15°48'49.2"S convertido para decimal
+        const longitude = -54.9265; // 54°55'35.5"W convertido para decimal
         
         const map = L.map('location-map').setView([latitude, longitude], 14);
         

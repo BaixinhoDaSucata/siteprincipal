@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Preços - Baixinho da Sucata | Dom Aquino-MT</title>
+    
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Calcule o valor dos seus materiais recicláveis. Ferramenta completa para estimar quanto vale sua sucata de ferro, cobre, alumínio e mais. Dom Aquino-MT e região.">
+    <meta name="keywords" content="calculadora sucata, preço sucata, valor ferro, valor alumínio, valor cobre, reciclagem valor, Dom Aquino, Mato Grosso, calcular valor sucata">
+    <meta name="author" content="Alair Rodrigues de Oliveira - Baixinho da Sucata">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://baixinhodasucata.com.br/paginas/calculadora.html">
+    <meta property="og:title" content="Calculadora de Preços - Baixinho da Sucata | Dom Aquino-MT">
+    <meta property="og:description" content="Calcule o valor dos seus materiais recicláveis. Ferramenta completa para estimar quanto vale sua sucata.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1501166222995-ff31c7e93cef">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://baixinhodasucata.com.br/paginas/calculadora.html">
+    <meta property="twitter:title" content="Calculadora de Preços - Baixinho da Sucata | Dom Aquino-MT">
+    <meta property="twitter:description" content="Calcule o valor dos seus materiais recicláveis. Ferramenta completa para estimar quanto vale sua sucata.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1501166222995-ff31c7e93cef">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♻️</text></svg>">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora de Preços - Baixinho da Sucata",
+      "url": "https://baixinhodasucata.com.br/paginas/calculadora.html",
+      "description": "Ferramenta para calcular o valor aproximado de materiais recicláveis como ferro, cobre, alumínio e outros.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Baixinho da Sucata",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua Agenor de Campos (Antiga Perimetral), 10",
+          "addressLocality": "Dom Aquino",
+          "addressRegion": "MT",
+          "postalCode": "78830-000",
+          "addressCountry": "BR"
+        },
+        "telephone": "+5566999281855"
+      }
+    }
+    </script>
+    
+    <style>
+        /* Estilos específicos para a página da calculadora */
+        .calculator-page {
+            background-color: var(--gray-100);
+        }
+        
+        .calculator-wrapper {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .price-list {
+            margin-top: 1.5rem;
+        }
+        
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-300);
+        }
+        
+        .price-item:last-child {
+            border-bottom: none;
+        }
+        
+        .material-name {
+            font-weight: 500;
+        }
+        
+        .material-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .result-container {
+            background-color: var(--light);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+        }
+        
+        .result-container h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .result-item {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .result-item h5 {
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+        }
+        
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .multi-calculator-container {
+            margin-top: 3rem;
+        }
+        
+        .multi-material-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+        }
+        
+        .multi-material-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--gray-300);
+        }
+        
+        .multi-material-item:last-child {
+            border-bottom: none;
+        }
+        
+        .multi-material-details {
+            flex-grow: 1;
+        }
+        
+        .multi-material-action {
+            margin-left: 1rem;
+        }
+        
+        .multi-calculator-total {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .multi-calculator-total h4 {
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+        
+        .multi-calculator-total p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="calculator-page">
+    <!-- WhatsApp Flutuante -->
+    <a href="https://wa.me/5566999281855" target="_blank" class="whatsapp-float" aria-label="Entre em contato pelo WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <span class="logo-icon">♻️</span> Baixinho da Sucata
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Início</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sobre.html">Sobre Nós</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="servicos.html">Serviços</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="tipos-sucata.html">Tipos de Sucata</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="calculadora.html">Calculadora</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contato.html">Contato</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner da Página -->
+    <section class="page-banner d-flex align-items-center" style="background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(21, 101, 192, 0.8)), url('https://images.unsplash.com/photo-1501166222995-ff31c7e93cef') center/cover no-repeat;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center text-white">
+                    <h1 class="display-4 fw-bold" data-aos="fade-up">Calculadora de Preços</h1>
+                    <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="../index.html" class="text-white">Início</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">Calculadora</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intro -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center" data-aos="fade-up">
+                    <div class="section-header mb-4">
+                        <h2 class="section-title">Calcule o Valor da Sua Sucata</h2>
+                        <p class="section-subtitle">Ferramenta completa para estimar quanto valem seus materiais recicláveis</p>
+                    </div>
+                    <p class="lead mb-4">Utilize nossa calculadora para estimar o valor dos seus materiais recicláveis. Selecione o tipo de material, informe o peso e obtenha uma estimativa instantânea do valor. Lembre-se que os preços podem variar de acordo com a qualidade do material e as cotações do mercado.</p>
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-info-circle me-2"></i> Oferecemos duas calculadoras: uma para cálculo individual e outra para múltiplos materiais.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabela de Preços de Referência -->
+    <section class="py-4 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="fade-up">
+                    <div class="calculator-wrapper">
+                        <h3 class="text-center mb-4">Preços de Referência</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="price-list">
+                                    <div class="price-item">
+                                        <span class="material-name">Ferro</span>
+                                        <span class="material-price">R$ 0,50/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Cobre</span>
+                                        <span class="material-price">R$ 2,70/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Alumínio</span>
+                                        <span class="material-price">R$ 1,80/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Aço</span>
+                                        <span class="material-price">R$ 0,55/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Inox</span>
+                                        <span class="material-price">R$ 2,20/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Baterias</span>
+                                        <span class="material-price">R$ 1,20/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Latão</span>
+                                        <span class="material-price">R$ 1,90/kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="price-list">
+                                    <div class="price-item">
+                                        <span class="material-name">Bronze</span>
+                                        <span class="material-price">R$ 2,10/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Motores Elétricos</span>
+                                        <span class="material-price">R$ 1,50/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Fios Encapados</span>
+                                        <span class="material-price">R$ 1,80/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Latinhas</span>
+                                        <span class="material-price">R$ 1,70/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Sucata Eletrônica</span>
+                                        <span class="material-price">R$ 0,90/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Papel/Papelão</span>
+                                        <span class="material-price">R$ 0,36/kg</span>
+                                    </div>
+                                    <div class="price-item">
+                                        <span class="material-name">Plástico/Vidro</span>
+                                        <span class="material-price">R$ 0,40-0,45/kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">* Preços de referência sujeitos a alterações sem aviso prévio (Atualizado em: Novembro/2023)</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculadora Individual -->
+    <section class="py-5">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Calculadora Individual</h2>
+                <p class="section-subtitle">Calcule o valor de um material específico</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="calculator-wrapper">
+                        <form id="calculadora-completa-form" class="needs-validation" novalidate>
+                            <div class="row mb-4">
+                                <div class="col-md-6 mb-3">
+                                    <label for="material-completo" class="form-label">Material:</label>
+                                    <select class="form-select" id="material-completo" required>
+                                        <option value="" selected disabled>Selecione o material</option>
+                                        <!-- Javascript preencherá este select -->
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor, selecione um material.
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="peso-completo" class="form-label">Peso (kg):</label>
+                                    <input type="number" class="form-control" id="peso-completo" min="0.1" step="0.1" required>
+                                    <div class="invalid-feedback">
+                                        Informe o peso do material.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary px-5">Calcular</button>
+                            </div>
+                        </form>
+                        
+                        <div id="resultado-calculo-completo" class="mt-4">
+                            <!-- Resultado será inserido aqui via Javascript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculadora de Múltiplos Materiais -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Calculadora de Múltiplos Materiais</h2>
+                <p class="section-subtitle">Calcule o valor total de diferentes materiais</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="fade-up">
+                    <div class="calculator-wrapper multi-calculator-container">
+                        <form id="multi-calculator-form" class="needs-validation mb-4" novalidate>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="multi-material" class="form-label">Material:</label>
+                                    <select class="form-select" id="multi-material" required>
+                                        <option value="" selected disabled>Selecione o material</option>
+                                        <!-- Javascript preencherá este select -->
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="multi-peso" class="form-label">Peso (kg):</label>
+                                    <input type="number" class="form-control" id="multi-peso" min="0.1" step="0.1" value="1" required>
+                                </div>
+                                <div class="col-md-4 mb-3 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-primary w-100">Adicionar Material</button>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        <div class="multi-material-list" id="multi-material-list">
+                            <div class="text-center py-4 text-muted">
+                                <i class="fas fa-plus-circle mb-2" style="font-size: 2rem;"></i>
+                                <p class="mb-0">Adicione materiais à lista</p>
+                            </div>
+                        </div>
+                        
+                        <div class="multi-calculator-total" id="multi-calculator-total">
+                            <h4>Valor Total Estimado:</h4>
+                            <p>R$ 0,00</p>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button id="limpar-lista" class="btn btn-outline-danger me-2">
+                                <i class="fas fa-trash-alt me-2"></i> Limpar Lista
+                            </button>
+                            <button id="whatsapp-lista" class="btn btn-success">
+                                <i class="fab fa-whatsapp me-2"></i> Enviar Lista por WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Informações Adicionais -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="fade-up">
+                    <div class="info-card p-4">
+                        <h3 class="text-center mb-4">Informações Importantes</h3>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="info-item">
+                                    <h4><i class="fas fa-info-circle me-2 text-primary"></i> Sobre os Preços</h4>
+                                    <p>Os preços utilizados nesta calculadora são valores de referência e podem variar de acordo com a qualidade do material, quantidade e cotação do mercado. Para valores exatos, entre em contato conosco.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="info-item">
+                                    <h4><i class="fas fa-truck me-2 text-primary"></i> Coleta em Domicílio</h4>
+                                    <p>Para sua comodidade, oferecemos o serviço de coleta em domicílio em Dom Aquino e região. Existe uma quantidade mínima para coleta que varia conforme o material e a distância.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="info-item">
+                                    <h4><i class="fas fa-balance-scale me-2 text-primary"></i> Pesagem</h4>
+                                    <p>Utilizamos balança certificada e calibrada, garantindo precisão na pesagem dos materiais. Você pode acompanhar todo o processo de pesagem, garantindo total transparência.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="info-item">
+                                    <h4><i class="fas fa-hand-holding-usd me-2 text-primary"></i> Pagamento</h4>
+                                    <p>O pagamento é realizado à vista, no momento da compra ou coleta. Trabalhamos com dinheiro em espécie e também com PIX para sua conveniência.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dúvidas Frequentes -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="section-header text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Dúvidas Frequentes</h2>
+                <p class="section-subtitle">Perguntas comuns sobre nossa calculadora</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="accordion" id="accordionCalculadora">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Os preços da calculadora são exatos?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionCalculadora">
+                                <div class="accordion-body">
+                                    Os preços utilizados na calculadora são valores de referência para dar uma estimativa do valor dos materiais. Os preços reais podem variar de acordo com a qualidade do material, as condições do mercado e a quantidade. Para valores exatos, recomendamos entrar em contato conosco.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Como identifico o tipo de material que tenho?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionCalculadora">
+                                <div class="accordion-body">
+                                    Identificar corretamente o material nem sempre é fácil. Se você tem dúvidas sobre qual tipo de material possui, pode enviar fotos por WhatsApp para nos ajudar a identificar, ou trazer o material até nós para avaliação. Materiais como cobre, alumínio e latão possuem cores características que ajudam na identificação.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Qual a quantidade mínima para venda?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionCalculadora">
+                                <div class="accordion-body">
+                                    Não há uma quantidade mínima para venda se você trouxer o material até nós. No entanto, para o serviço de coleta em domicílio, trabalhamos com quantidades mínimas que variam de acordo com o material e a distância. Por exemplo, para Dom Aquino, normalmente trabalhamos com mínimo de 50kg para metais, enquanto para cidades vizinhas o mínimo pode ser maior.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Como preparar os materiais para venda?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionCalculadora">
+                                <div class="accordion-body">
+                                    Para obter o melhor valor, recomendamos separar os materiais por tipo (ferro, alumínio, cobre, etc.), limpar e remover contaminantes quando possível, e compactar os materiais para facilitar o transporte. Materiais misturados geralmente têm valor menor do que os separados por categoria.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center" data-aos="zoom-in">
+                    <h2 class="display-5 fw-bold mb-4">Transforme Seu Lixo em Dinheiro</h2>
+                    <p class="lead mb-4">Agora que você já calculou o valor dos seus materiais, entre em contato para agendar uma coleta ou obter mais informações.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="https://wa.me/5566999281855" class="btn btn-light btn-lg">
+                            <i class="fab fa-whatsapp me-2"></i> Chame no WhatsApp
+                        </a>
+                        <a href="tel:+5566999281855" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-phone-alt me-2"></i> Ligue Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4 class="footer-title">Baixinho da Sucata</h4>
+                    <p>Compramos materiais recicláveis em Dom Aquino e região. Contribuímos para um futuro mais sustentável, transformando resíduos em recursos.</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5 class="footer-heading">Links Rápidos</h5>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Início</a></li>
+                        <li><a href="sobre.html">Sobre Nós</a></li>
+                        <li><a href="servicos.html">Serviços</a></li>
+                        <li><a href="tipos-sucata.html">Materiais</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                    <h5 class="footer-heading">Serviços</h5>
+                    <ul class="footer-links">
+                        <li><a href="servicos.html">Compra de Sucata</a></li>
+                        <li><a href="servicos.html">Coleta em Domicílio</a></li>
+                        <li><a href="servicos.html">Limpeza de Terrenos</a></li>
+                        <li><a href="servicos.html">Retirada de Materiais</a></li>
+                        <li><a href="calculadora.html">Calculadora de Preços</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h5 class="footer-heading">Contato</h5>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Rua Agenor de Campos, 10, Dom Aquino - MT</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+5566999281855">(66) 99928-1855</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:alairrodrigues93@gmail.com">alairrodrigues93@gmail.com</a></li>
+                        <li><i class="fas fa-clock"></i> Segunda a Sábado: 7h às 18h</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Baixinho da Sucata. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">
+                        <a href="termos.html">Termos de Uso</a> | 
+                        <a href="termos.html">Política de Privacidade</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="back-to-top" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="../js/main.js"></script>
+    <script src="../js/calculadora.js"></script>
+    
+    <script>
+        // Javascript específico para a calculadora de múltiplos materiais
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preços dos materiais por kg (R$)
+            const precosMateriais = {
+                'ferro': 0.50,         // Ferro comum
+                'cobre': 2.70,         // Cobre
+                'aluminio': 1.80,      // Alumínio
+                'aco': 0.55,           // Aço
+                'inox': 2.20,          // Aço inoxidável
+                'bateria': 1.20,       // Baterias
+                'latao': 1.90,         // Latão
+                'bronze': 2.10,        // Bronze
+                'motor': 1.50,         // Motores elétricos
+                'fios': 1.80,          // Fios encapados
+                'latinhas': 1.70,      // Latinhas de alumínio
+                'eletronica': 0.90,    // Sucata eletrônica
+                'papel': 0.36,         // Papel/Papelão
+                'plastico': 0.40,      // Plástico
+                'vidro': 0.45          // Vidro
+            };
+            
+            const materiaisNomes = {
+                'ferro': 'Ferro',
+                'cobre': 'Cobre',
+                'aluminio': 'Alumínio',
+                'aco': 'Aço',
+                'inox': 'Aço Inoxidável',
+                'bateria': 'Baterias',
+                'latao': 'Latão',
+                'bronze': 'Bronze',
+                'motor': 'Motores Elétricos',
+                'fios': 'Fios Encapados',
+                'latinhas': 'Latinhas de Alumínio',
+                'eletronica': 'Sucata Eletrônica',
+                'papel': 'Papel/Papelão',
+                'plastico': 'Plástico',
+                'vidro': 'Vidro'
+            };
+            
+            // Preenche o select da calculadora múltipla
+            const multiMaterialSelect = document.getElementById('multi-material');
+            if (multiMaterialSelect) {
+                let optionsHTML = '<option value="" selected disabled>Selecione o material</option>';
+                
+                for (const [key, name] of Object.entries(materiaisNomes)) {
+                    optionsHTML += `<option value="${key}">${name}</option>`;
+                }
+                
+                multiMaterialSelect.innerHTML = optionsHTML;
+            }
+            
+            // Inicializa a lista de materiais
+            let materiais = [];
+            
+            // Form da calculadora múltipla
+            const multiCalculatorForm = document.getElementById('multi-calculator-form');
+            const multiMaterialList = document.getElementById('multi-material-list');
+            const multiCalculatorTotal = document.getElementById('multi-calculator-total');
+            const limparListaBtn = document.getElementById('limpar-lista');
+            const whatsappListaBtn = document.getElementById('whatsapp-lista');
+            
+            if (multiCalculatorForm) {
+                multiCalculatorForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const material = document.getElementById('multi-material').value;
+                    const peso = parseFloat(document.getElementById('multi-peso').value);
+                    
+                    if (!material || isNaN(peso) || peso <= 0) {
+                        alert('Por favor, selecione um material e informe um peso válido.');
+                        return;
+                    }
+                    
+                    // Adiciona o material à lista
+                    const materialId = Date.now(); // ID único para cada item
+                    const materialNome = materiaisNomes[material];
+                    const materialPreco = precosMateriais[material];
+                    const valorTotal = materialPreco * peso;
+                    
+                    materiais.push({
+                        id: materialId,
+                        tipo: material,
+                        nome: materialNome,
+                        peso: peso,
+                        precoUnitario: materialPreco,
+                        valorTotal: valorTotal
+                    });
+                    
+                    // Atualiza a exibição
+                    atualizarListaMateriais();
+                    atualizarValorTotal();
+                    
+                    // Limpa o formulário
+                    document.getElementById('multi-peso').value = '1';
+                });
+            }
+            
+            // Função para atualizar a lista de materiais
+            function atualizarListaMateriais() {
+                if (materiais.length === 0) {
+                    multiMaterialList.innerHTML = `
+                        <div class="text-center py-4 text-muted">
+                            <i class="fas fa-plus-circle mb-2" style="font-size: 2rem;"></i>
+                            <p class="mb-0">Adicione materiais à lista</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                let listHTML = '';
+                
+                materiais.forEach(item => {
+                    listHTML += `
+                        <div class="multi-material-item">
+                            <div class="multi-material-details">
+                                <strong>${item.nome}</strong> - ${item.peso} kg x R$ ${item.precoUnitario.toFixed(2)}
+                                <div>Valor: <span class="text-success fw-bold">R$ ${item.valorTotal.toFixed(2)}</span></div>
+                            </div>
+                            <div class="multi-material-action">
+                                <button class="btn btn-sm btn-outline-danger btn-remove-material" data-id="${item.id}">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                multiMaterialList.innerHTML = listHTML;
+                
+                // Adiciona eventos para remover itens
+                const removeButtons = document.querySelectorAll('.btn-remove-material');
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const materialId = parseInt(this.getAttribute('data-id'));
+                        removerMaterial(materialId);
+                    });
+                });
+            }
+            
+            // Função para remover um material da lista
+            function removerMaterial(id) {
+                materiais = materiais.filter(item => item.id !== id);
+                atualizarListaMateriais();
+                atualizarValorTotal();
+            }
+            
+            // Função para atualizar o valor total
+            function atualizarValorTotal() {
+                let total = 0;
+                
+                materiais.forEach(item => {
+                    total += item.valorTotal;
+                });
+                
+                multiCalculatorTotal.innerHTML = `
+                    <h4>Valor Total Estimado:</h4>
+                    <p>R$ ${total.toFixed(2)}</p>
+                `;
+            }
+            
+            // Botão para limpar a lista
+            if (limparListaBtn) {
+                limparListaBtn.addEventListener('click', function() {
+                    if (materiais.length === 0) return;
+                    
+                    if (confirm('Tem certeza que deseja limpar toda a lista?')) {
+                        materiais = [];
+                        atualizarListaMateriais();
+                        atualizarValorTotal();
+                    }
+                });
+            }
+            
+            // Botão para enviar lista por WhatsApp
+            if (whatsappListaBtn) {
+                whatsappListaBtn.addEventListener('click', function() {
+                    if (materiais.length === 0) {
+                        alert('Adicione pelo menos um material à lista antes de enviar.');
+                        return;
+                    }
+                    
+                    let mensagem = 'Olá! Tenho interesse em vender os seguintes materiais:\n\n';
+                    
+                    materiais.forEach(item => {
+                        mensagem += `- ${item.nome}: ${item.peso} kg (Valor estimado: R$ ${item.valorTotal.toFixed(2)})\n`;
+                    });
+                    
+                    let total = 0;
+                    materiais.forEach(item => {
+                        total += item.valorTotal;
+                    });
+                    
+                    mensagem += `\nValor total estimado: R$ ${total.toFixed(2)}\n\nGostaria de obter mais informações ou agendar uma coleta.`;
+                    
+                    const whatsappUrl = `https://wa.me/5566999281855?text=${encodeURIComponent(mensagem)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { terms: ['entrevista', 'selecao', 'processo'], response: 'Nosso processo seletivo consiste em análise curricular, entrevista com RH, entrevista técnica/prática (quando aplicável), entrevista com gestor, exames admissionais e contratação.' },
             { terms: ['requisito', 'precisa', 'necessario'], response: 'Os requisitos variam de acordo com cada vaga. Você pode verificar os requisitos específicos na descrição de cada posição.' },
             { terms: ['beneficio', 'vantagem', 'oferecem'], response: 'Oferecemos diversos benefícios como vale-transporte, vale-alimentação, plano de saúde após o período de experiência, seguro de vida e oportunidades de crescimento interno.' },
-            { terms: ['contato', 'telefone', 'email', 'falar'], response: 'Você pode entrar em contato conosco pelo telefone (66) 99928-1855 ou pelo e-mail alairrodrigues93@gmail.com.' },
+            { terms: ['contato', 'telefone', 'email', 'falar'], response: 'Você pode entrar em contato conosco pelo telefone (66) 9671-4348 ou pelo e-mail alairrodrigues93@gmail.com.' },
             { terms: ['horario', 'jornada', 'turno', 'trabalha'], response: 'Os horários variam conforme a função, geralmente entre 7h e 18h, de segunda a sexta ou de segunda a sábado, com escalas específicas para algumas funções.' },
             { terms: ['experiencia', 'conhecimento', 'saber'], response: 'Algumas vagas exigem experiência prévia, outras são adequadas para iniciantes. Verifique os requisitos específicos de cada vaga.' },
             { terms: ['enviar', 'curriculo', 'candidatar', 'aplicar'], response: 'Para se candidatar, role a página até o formulário de candidatura, preencha seus dados e anexe seu currículo em formato PDF ou DOC.' }
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'candidatar': 'Para se candidatar, role a página até o formulário de candidatura, preencha seus dados e anexe seu currículo em formato PDF ou DOC.',
         'prazo': 'Geralmente entramos em contato com os candidatos selecionados em até 10 dias úteis após o recebimento do currículo.',
         'obrigado': 'Disponha! Estou sempre aqui para ajudar. Há mais alguma coisa que você gostaria de saber?',
-        'contato': 'Você pode entrar em contato conosco pelo telefone (66) 99928-1855 ou pelo e-mail alairrodrigues93@gmail.com.',
+        'contato': 'Você pode entrar em contato conosco pelo telefone (66) 9671-4348 ou pelo e-mail alairrodrigues93@gmail.com.',
         'endereco': 'Estamos localizados na Rua Agenor de Campos (Antiga Perimetral), nº 10, Loteamento Agua Azul, Dom Aquino - MT.',
         'mais vagas': 'Periodicamente abrimos novas vagas. Caso não encontre uma vaga que se adeque ao seu perfil, recomendamos enviar seu currículo para nosso banco de talentos.',
         'requisitos': 'Os requisitos variam de acordo com cada vaga. Você pode verificar os requisitos específicos na descrição de cada posição.',

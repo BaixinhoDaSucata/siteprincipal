@@ -154,7 +154,7 @@ function initFormValidation() {
  * Função para o botão de WhatsApp
  */
 function openWhatsApp() {
-    window.open('https://wa.me/5566999281855', '_blank');
+    window.open('https://wa.me/556696714348', '_blank');
 }
 
 /**

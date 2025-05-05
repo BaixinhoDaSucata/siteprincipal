@@ -140,7 +140,7 @@ function initCalculadoraCompleta() {
                     </div>
                     <div class="text-center mt-3">
                         <p class="small">* Valor aproximado. O preço final pode variar de acordo com a qualidade do material.</p>
-                        <a href="https://wa.me/5566999281855?text=Olá! Gostaria de saber mais sobre a compra de ${formatarNomeMaterial(material)}." class="btn btn-success mt-2">
+                        <a href="https://wa.me/556696714348?text=Olá! Gostaria de saber mais sobre a compra de ${formatarNomeMaterial(material)}." class="btn btn-success mt-2">
                             <i class="fab fa-whatsapp me-2"></i> Falar com o Baixinho
                         </a>
                     </div>

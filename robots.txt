@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /server.js
+Disallow: /server/
+Disallow: /.replit
+
+# Sitemap
+Sitemap: https://baixinhodasucata.com.br/sitemap.xml

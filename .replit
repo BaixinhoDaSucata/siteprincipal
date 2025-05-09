@@ -19,6 +19,10 @@ args = "Static Website Server"
 task = "workflow.run"
 args = "Node API Server"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Forum Server"
+
 [[workflows.workflow]]
 name = "Static Website Server"
 author = "agent"
@@ -37,6 +41,15 @@ task = "shell.exec"
 args = "node server.js"
 waitForPort = 3000
 
+[[workflows.workflow]]
+name = "Forum Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "node forum-server.js"
+waitForPort = 5001
+
 [deployment]
 run = ["sh", "-c", "python -m http.server 5000"]
 
@@ -47,3 +60,7 @@ externalPort = 3000
 [[ports]]
 localPort = 5000
 externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3001

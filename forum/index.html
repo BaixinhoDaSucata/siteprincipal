@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórum Comunitário - Baixinho da Sucata</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-3094079623396890">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3094079623396890" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1610360227262-c5e1f1044235" class="logo rounded" alt="Baixinho da Sucata">
+                        <h5 class="mt-2">Fórum Comunitário</h5>
+                        <p>Baixinho da Sucata</p>
+                    </div>
+                    
+                    <div class="mb-4 px-3">
+                        <div class="user-info" id="user-info">
+                            <!-- Formulário de login será exibido aqui se não estiver logado -->
+                            <div class="login-form" id="login-form">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Seu Nome:</label>
+                                    <input type="text" class="form-control" id="username" placeholder="Digite seu nome">
+                                </div>
+                                <button class="btn btn-primary w-100" id="login-btn">Entrar no Fórum</button>
+                            </div>
+                            
+                            <!-- Informações do usuário serão exibidas aqui após login -->
+                            <div class="logged-user d-none" id="logged-user">
+                                <p>Olá, <span id="user-name">Visitante</span>!</p>
+                                <button class="btn btn-sm btn-outline-secondary" id="logout-btn">Sair</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Navegação</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="nav-topics" href="#">
+                                <i class="fas fa-list-ul me-2"></i>
+                                Tópicos do Fórum
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="nav-new-topic" href="#">
+                                <i class="fas fa-plus-circle me-2"></i>
+                                Criar Novo Tópico
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Usuários Online</span>
+                    </h6>
+                    <div class="px-3">
+                        <ul class="list-unstyled" id="users-online">
+                            <li class="online-user">Carregando...</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-5 px-3">
+                        <a href="/index.html" class="btn btn-sm btn-outline-secondary w-100">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Voltar ao Site
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            
+            <!-- Conteúdo Principal -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Header -->
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2" id="page-title">Fórum Comunitário</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-sm btn-outline-primary me-2 d-md-none" id="toggle-sidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="btn-group me-2 d-none" id="topic-actions">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="refresh-btn">
+                                <i class="fas fa-sync-alt me-1"></i> Atualizar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Conteúdo Dinâmico -->
+                <div id="main-content">
+                    <!-- Lista de Tópicos -->
+                    <div id="topics-list" class="content-section">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h3>Tópicos de Discussão</h3>
+                            <button class="btn btn-primary" id="create-topic-btn">
+                                <i class="fas fa-plus me-1"></i> Novo Tópico
+                            </button>
+                        </div>
+                        
+                        <div class="list-group mb-4" id="topics-container">
+                            <div class="text-center p-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Carregando...</span>
+                                </div>
+                                <p class="mt-2">Carregando tópicos...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Criar Novo Tópico -->
+                    <div id="new-topic-form" class="content-section d-none">
+                        <h3>Criar Novo Tópico</h3>
+                        <form id="topic-form">
+                            <div class="mb-3">
+                                <label for="topic-title" class="form-label">Título do Tópico</label>
+                                <input type="text" class="form-control" id="topic-title" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="topic-description" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="topic-description" rows="3" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="topic-initial-post" class="form-label">Mensagem Inicial</label>
+                                <textarea class="form-control" id="topic-initial-post" rows="5" required></textarea>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" id="cancel-topic-btn">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Criar Tópico</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Visualização de Tópico e Posts -->
+                    <div id="topic-view" class="content-section d-none">
+                        <div class="topic-header mb-4">
+                            <h3 id="topic-view-title"></h3>
+                            <p class="text-muted" id="topic-view-meta"></p>
+                            <p id="topic-view-description"></p>
+                        </div>
+                        
+                        <div class="posts-container mb-4" id="posts-container">
+                            <!-- Posts serão carregados aqui dinamicamente -->
+                        </div>
+                        
+                        <div class="typing-indicator d-none mb-3" id="typing-indicator">
+                            <div class="typing-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <span id="typing-text">Alguém está digitando...</span>
+                        </div>
+                        
+                        <div class="reply-form">
+                            <h5>Responder</h5>
+                            <form id="reply-form">
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="reply-message" rows="3" placeholder="Digite sua mensagem..." required></textarea>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-secondary" id="back-to-topics-btn">Voltar para Tópicos</button>
+                                    <button type="submit" class="btn btn-primary">Enviar Resposta</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Aviso de Login -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="login-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-warning text-dark">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong class="me-auto">Aviso</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Por favor, faça login para participar do fórum.
+            </div>
+        </div>
+        
+        <div id="notification-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <i class="fas fa-bell me-2 text-primary"></i>
+                <strong class="me-auto">Notificação</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="notification-message">
+                Nova mensagem recebida!
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Socket.io Client -->
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <!-- Forum JS -->
+    <script src="forum.js"></script>
+</body>
+</html>
